@@ -1,0 +1,10 @@
+D:\Csharp\Task1Final\Task1Final\obj\Debug\Task1Final.csprojAssemblyReference.cache
+D:\Csharp\Task1Final\Task1Final\obj\Debug\Task1Final.Form1.resources
+D:\Csharp\Task1Final\Task1Final\obj\Debug\Task1Final.Properties.Resources.resources
+D:\Csharp\Task1Final\Task1Final\obj\Debug\Task1Final.csproj.GenerateResource.cache
+D:\Csharp\Task1Final\Task1Final\obj\Debug\Task1Final.csproj.CoreCompileInputs.cache
+D:\Csharp\Task1Final\Task1Final\bin\Debug\Task1Final.exe.config
+D:\Csharp\Task1Final\Task1Final\bin\Debug\Task1Final.exe
+D:\Csharp\Task1Final\Task1Final\bin\Debug\Task1Final.pdb
+D:\Csharp\Task1Final\Task1Final\obj\Debug\Task1Final.exe
+D:\Csharp\Task1Final\Task1Final\obj\Debug\Task1Final.pdb
