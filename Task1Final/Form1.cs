@@ -17,7 +17,7 @@ namespace Task1Final
             InitializeComponent();
         }
 
-        private void Timer1_Tick(object sender, EventArgs e)
+        private void Timer1_Tick(object sender, EventArgs e) // timer ticks and the round goes up with each tick
         {
             GameEngine gameEngine = new GameEngine();
             gameEngine.Round();

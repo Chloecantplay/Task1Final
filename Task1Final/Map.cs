@@ -48,7 +48,7 @@ namespace Task1Final
             }
         }
 
-        public void MakeMap()
+        public void MakeMap()//creates the map
         {
             for (int i = 0; i < 20; i++)
             {
@@ -74,7 +74,7 @@ namespace Task1Final
                 }
             }
         }
-        public void UpdateMap()
+        public void UpdateMap()// updates the map with units 
         {
             for (int i = 0; i < 20; i++)
             {

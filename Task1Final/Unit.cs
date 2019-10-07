@@ -18,7 +18,7 @@ namespace Task1Final
         protected int AttackRange;
         protected int Faction;
         protected string Symbol;
-        protected bool IsAttacking;
+        protected bool IsAttacking; //Shows if they unit is currently attacking or not
 
         public abstract void Move(int dir);
         public abstract void Combat(Unit attacker);

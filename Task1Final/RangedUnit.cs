@@ -92,7 +92,7 @@ namespace Task1Final
             get { return IsAttacking; }
             set { IsAttacking = value; }
         }
-        public override void Move(int dir)
+        public override void Move(int dir) //switch statement to determine the direction of movement
         {
             switch (dir)
             {
@@ -104,11 +104,11 @@ namespace Task1Final
             }
         }
 
-        public override void Combat(Unit attacker)
+        public override void Combat(Unit attacker) //Combat method to make units take damage
         {
             if (attacker is MeleeUnit)
             {
-                Health = Health - ((MeleeUnit)attacker).Attack;
+                Health = Health - ((MeleeUnit)attacker).attack;
             }
             else if (attacker is RangedUnit)
             {
@@ -122,7 +122,7 @@ namespace Task1Final
             }
         }
 
-        public override bool InRange(Unit other)
+        public override bool InRange(Unit other) //checks to see if the unit is in range of attack
         {
             int distance = 0;
             int otherX = 0;
@@ -148,7 +148,7 @@ namespace Task1Final
                 return false;
             }
         }
-        public override Unit ClosestUnit(Unit[] units)
+        public override Unit ClosestUnit(Unit[] units) //checks to see where the closest unit is
         {
             Unit ClosestEnemy = this;
             int HowFar = 20;
@@ -181,7 +181,7 @@ namespace Task1Final
             return ClosestEnemy;
         }
 
-        public int Distance(Unit c)
+        public int Distance(Unit c) // checks the distance from the nearest unit to the unit
         {
             int Distance;
             int yDis;
@@ -211,7 +211,7 @@ namespace Task1Final
             }
         }
 
-        public override bool Death()
+        public override bool Death() // checks to see if the unit is dead
         {
             if (Health <= 0)
             {
@@ -222,7 +222,7 @@ namespace Task1Final
                 return false;
             }
         }
-        public void CheckHealth()
+        public void CheckHealth()//checks the health of the unit and determines if it must run away.
         {
             Random r = new Random();
 
@@ -233,7 +233,7 @@ namespace Task1Final
                 yPos += r.Next(-1, 1);
             }
         }
-        public override string Stats()
+        public override string Stats()// displays the info on the unit
         {
             return "Ranged Unit: " + health.ToString() + "Hp \n" + Attack.ToString() + "Damage \n" + Faction + " Team";
         }
