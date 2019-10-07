@@ -98,85 +98,15 @@ namespace Task1Final
             return "Melee Unit: " + health.ToString() + "Hp \n" + Attack.ToString() + "Damage \n" + Faction + " Team";
         }
 
-        public override void Move(Unit c)
+        public override void Move(int dir)
         {
-            if (IsAttacking == false)
+            switch (dir)
             {
-                if (movetimer == speed)
-                {
-                    if (c.GetType() == typeof(MeleeUnit))
-                    {
-                        if (((MeleeUnit)c).xPos < xPos)
-                        {
-                            xPos -= 1;
-
-                            if (((MeleeUnit)c).yPos < yPos)
-                            {
-                                yPos -= 1;
-
-                                movetimer--;
-                            }
-                            else if (((MeleeUnit)c).yPos > yPos)
-                            {
-                                yPos += 1;
-
-                                movetimer--;
-                            }
-                            else if (((MeleeUnit)c).yPos == yPos)
-                            {
-                                yPos += 0;
-
-                                movetimer--;
-                            }
-                        }
-                        else if (((MeleeUnit)c).xPos > xPos)
-                        {
-                            xPos += 1;
-
-                            if (((MeleeUnit)c).yPos < yPos)
-                            {
-                                yPos -= 1;
-
-                                movetimer--;
-                            }
-                            else if (((MeleeUnit)c).yPos > yPos)
-                            {
-                                yPos += 1;
-
-                                movetimer--;
-                            }
-                            else if (((MeleeUnit)c).yPos == yPos)
-                            {
-                                yPos += 0;
-
-                                movetimer--;
-                            }
-                        }
-                        else if (((MeleeUnit)c).xPos == xPos)
-                        {
-                            xPos += 0;
-
-                            if (((MeleeUnit)c).yPos < yPos)
-                            {
-                                yPos -= 1;
-
-                                movetimer--;
-                            }
-                            else if (((MeleeUnit)c).yPos > yPos)
-                            {
-                                yPos += 1;
-
-                                movetimer--;
-                            }
-                            else if (((MeleeUnit)c).yPos == yPos)
-                            {
-                                yPos += 0;
-
-                                movetimer--;
-                            }
-                        }
-                    }
-                }
+                case 0: yPos--; break; //North
+                case 1: xPos++; break; //East
+                case 2: yPos++; break; //South
+                case 3: xPos--; break; //West
+                default: break;
             }
         }
 

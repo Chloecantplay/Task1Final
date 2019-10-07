@@ -20,7 +20,7 @@ namespace Task1Final
         public string Symbol;
         public bool IsAttacking;
 
-        public abstract void Move(Unit c);
+        public abstract void Move(int dir);
         public abstract void Combat(Unit c);
         public abstract bool Range(Unit c);
         public abstract Unit ClosestUnit(Unit[] units);

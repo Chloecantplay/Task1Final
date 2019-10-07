@@ -42,5 +42,5 @@ namespace Task1Final
             round++;
         }
     }
-    }
 }
+
