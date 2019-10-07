@@ -92,119 +92,54 @@ namespace Task1Final
             get { return IsAttacking; }
             set { IsAttacking = value; }
         }
-        public override void Move(Unit c)
+        public override void Move(int dir)
         {
-            if (IsAttacking == false)
+            switch (dir)
             {
-                if (movetimer == speed)
-                {
-                    if (c.GetType() == typeof(RangedUnit))
-                    {
-                        if (((RangedUnit)c).xPos < xPos)
-                        {
-                            xPos -= 1;
-
-                            if (((RangedUnit)c).yPos < yPos)
-                            {
-                                yPos -= 1;
-
-                                movetimer--;
-                            }
-                            else if (((RangedUnit)c).yPos > yPos)
-                            {
-                                yPos += 1;
-
-                                movetimer--;
-                            }
-                            else if (((RangedUnit)c).yPos == yPos)
-                            {
-                                yPos += 0;
-
-                                movetimer--;
-                            }
-                        }
-                        else if (((RangedUnit)c).xPos > xPos)
-                        {
-                            xPos += 1;
-
-                            if (((RangedUnit)c).yPos < yPos)
-                            {
-                                yPos -= 1;
-
-                                movetimer--;
-                            }
-                            else if (((RangedUnit)c).yPos > yPos)
-                            {
-                                yPos += 1;
-
-                                movetimer--;
-                            }
-                            else if (((RangedUnit)c).yPos == yPos)
-                            {
-                                yPos += 0;
-
-                                movetimer--;
-                            }
-                        }
-                        else if (((RangedUnit)c).xPos == xPos)
-                        {
-                            xPos += 0;
-
-                            if (((RangedUnit)c).yPos < yPos)
-                            {
-                                yPos -= 1;
-
-                                movetimer--;
-                            }
-                            else if (((RangedUnit)c).yPos > yPos)
-                            {
-                                yPos += 1;
-
-                                movetimer--;
-                            }
-                            else if (((RangedUnit)c).yPos == yPos)
-                            {
-                                yPos += 0;
-
-                                movetimer--;
-                            }
-                        }
-                    }
-                }
+                case 0: yPos--; break; //North
+                case 1: xPos++; break; //East
+                case 2: yPos++; break; //South
+                case 3: xPos--; break; //West
+                default: break;
             }
         }
 
-        public override void Combat(Unit c)
+        public override void Combat(Unit attacker)
         {
-            CheckHealth();
-            if (isAttacking)
+            if (attacker is MeleeUnit)
             {
-                if (movetimer == speed)
-                {
-                    movetimer = 1;
-                    if (Range(c))
-                    {
-                        IsAttacking = true;
+                Health = Health - ((MeleeUnit)attacker).Attack;
+            }
+            else if (attacker is RangedUnit)
+            {
+                RangedUnit ru = (RangedUnit)attacker;
+                Health = Health - (ru.Attack - ru.attackRange);
+            }
 
-                        if (c.GetType() == typeof(MeleeUnit))
-                        {
-                            ((MeleeUnit)c).health -= attack;
-                        }
-                        else if (c.GetType() == typeof(RangedUnit))
-                        {
-                            ((RangedUnit)c).health -= attack;
-                        }
-                    }
-                }
-                else
-                {
-                    movetimer++;
-                }
+            if (Health <= 0)
+            {
+                Death(); //DEATH !!!
             }
         }
-        public override bool Range(Unit c)
+
+        public override bool InRange(Unit other)
         {
-            if (Distance(c) < AttackRange)
+            int distance = 0;
+            int otherX = 0;
+            int otherY = 0;
+            if (other is MeleeUnit)
+            {
+                otherX = ((MeleeUnit)other).xPos;
+                otherY = ((MeleeUnit)other).yPos;
+            }
+            else if (other is RangedUnit)
+            {
+                otherX = ((RangedUnit)other).xPos;
+                otherY = ((RangedUnit)other).yPos;
+            }
+
+            distance = Math.Abs(xPos - otherX) + Math.Abs(yPos - otherY);
+            if (distance <= AttackRange)
             {
                 return true;
             }

@@ -8,31 +8,29 @@ namespace Task1Final
 {
     class MeleeUnit : Unit
     {
-        public MeleeUnit( int health, int maxHealth, int speed, int attack, int attackRange, string faction, string symbol, bool isAttacking)
+        public MeleeUnit(int xPos,int yPos, int maxHealth, int speed, int attack, string f, string symbol)
         {
-            this.health = health;
+            XPos = xPos;
+            YPos = yPos;
             this.maxHealth = maxHealth;
             this.speed = speed;
             this.attack = attack;
             this.attackRange = attackRange;
-            this.faction = faction;
+            this.faction = f;
             this.symbol = symbol;
             this.isAttacking = isAttacking;
         }
         Random r = new Random();
         int movetimer=1;
-        public int Xpos
+        public int XPos
         {
-            get { return xPos; }
-            set { xPos = value; }
+            get { return base.xPos; }
+            set { base.xPos = value; }
         }
-
-
-
-        public int Ypos
+        public int YPos
         {
-            get { return yPos; }
-            set { yPos = value; }
+            get { return base.yPos; }
+            set { base.yPos = value; }
         }
 
 
@@ -74,7 +72,7 @@ namespace Task1Final
         }
 
 
-        public string faction
+        public int faction
         {
             get { return Faction; }
             set { Faction = value; }
@@ -110,32 +108,21 @@ namespace Task1Final
             }
         }
 
-        public override void Combat(Unit c)
+        public override void Combat(Unit attacker)
         {
-            CheckHealth();
-            if (isAttacking)
+            if (attacker is MeleeUnit)
             {
-                if (movetimer == speed)
-                {
-                    movetimer = 1;
-                    if (Range(c))
-                    {
-                        IsAttacking = true;
+                Health = Health - ((MeleeUnit)attacker).Attack;
+            }
+            else if (attacker is RangedUnit)
+            {
+                RangedUnit ru = (RangedUnit)attacker;
+                Health = Health - (ru.attack - ru.attackRange);
+            }
 
-                        if (c.GetType() == typeof(MeleeUnit))
-                        {
-                            ((MeleeUnit)c).health -= attack;
-                        }
-                        else if (c.GetType() == typeof(RangedUnit))
-                        {
-                            ((RangedUnit)c).health -= attack;
-                        }
-                    }
-                }
-                else
-                {
-                    movetimer++;
-                }
+            if (Health <= 0)
+            {
+                Death(); //DEATH !!!
             }
         }
         public void CheckHealth()
@@ -149,9 +136,24 @@ namespace Task1Final
                 yPos += r.Next(-1, 1);
             }
         }
-        public override bool Range(Unit c)
+        public override bool InRange(Unit other)
         {
-            if(Distance(c)< AttackRange)
+            int distance = 0;
+            int otherX = 0;
+            int otherY = 0;
+            if (other is MeleeUnit)
+            {
+                otherX = ((MeleeUnit)other).xPos;
+                otherY = ((MeleeUnit)other).yPos;
+            }
+            else if (other is RangedUnit)
+            {
+                otherX = ((RangedUnit)other).xPos;
+                otherY = ((RangedUnit)other).yPos;
+            }
+
+            distance = Math.Abs(xPos - otherX) + Math.Abs(yPos - otherY);
+            if (distance <= AttackRange)
             {
                 return true;
             }

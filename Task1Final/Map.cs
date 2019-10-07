@@ -14,73 +14,38 @@ namespace Task1Final
         int ClassAs;
         int UnitNum;
         Random r = new Random();
-        private Unit[] units;
-        
-        public Unit[] Units
+        int numUnits = 0;
+        List<Unit> units;
+        TextBox txtInfo;
+        public List<Unit> Units
         {
             get { return units; }
             set { units = value; }
         }
 
-
-        public Map(int NumUnits)
+        public Map(int n, TextBox txt)
         {
-            units = new Unit[NumUnits];
-            UnitNum = NumUnits;
+            units = new List<Unit>();
+            numUnits = n;
+            txtInfo = txt;
         }
-        public List<Unit> CreateUnit()
+
+        
+        public void Generate()
         {
-            Form1 form1 = new Form1();
-            for (int i = 0; i < UnitNum; i++)
+            for (int i = 0; i < numUnits; i++)
             {
-
-                ClassAs = r.Next(0, 2);
-                FactionAs = r.Next(0, 2);
-
-                if (ClassAs == 0)
+                if (r.Next(0, 2) == 0) //Generate Melee Unit
                 {
-                    if (FactionAs == 0)
-                    {
-                        MeleeUnit Barbarian = new MeleeUnit(30, 30, 1, 10, 1, "Encampment", "#", false);
-                        Barbarian.xPos = r.Next(0, 20);
-                        Barbarian.yPos = r.Next(0, 20);
-                        units[i] = Barbarian;
-
-                        form1.StatsBox.Text += Barbarian.Stats() + "\n";
-                    }
-                    else if (FactionAs == 1)
-                    {
-                        MeleeUnit Barbarian = new MeleeUnit(30, 30, 1, 10, 1, "Adventurer", "#", false);
-                        Barbarian.xPos = r.Next(0, 20);
-                        Barbarian.yPos = r.Next(0, 20);
-                        units[i] = Barbarian;
-
-                        form1.StatsBox.Text += Barbarian.Stats() + "\n";
-                    }
+                    MeleeUnit m = new MeleeUnit(r.Next(0, 20),r.Next(0, 20),100,1,20,(i % 2 == 0 ? 1 : 0),"M");
+                    units.Add(m);
                 }
-                else if (ClassAs == 1)
+                else // Generate Ranged Unit
                 {
-                    if (FactionAs == 0)
-                    {
-                        RangedUnit Archer = new RangedUnit(20, 20, 2, 15, 3, "Encampment", "☼", false);
-                        Archer.xPos = r.Next(0, 20);
-                        Archer.yPos = r.Next(0, 20);
-                        units[i] = Archer;
-
-                        form1.StatsBox.Text += Archer.Stats() + "\n";
-                    }
-                    else if (FactionAs == 1)
-                    {
-                        RangedUnit Archer = new RangedUnit(20, 20, 2, 15, 3, "Adventurer", "☼", false);
-                        Archer.xPos = r.Next(0, 20);
-                        Archer.yPos = r.Next(0, 20);
-                        units[i] = Archer;
-
-                        form1.StatsBox.Text += Archer.Stats() + "\n";
-                    }
+                    RangedUnit ru = new RangedUnit(r.Next(0, 20), r.Next(0, 20),100,1,20,5,(i % 2 == 0 ? 1 : 0),"R");
+                    units.Add(ru);
                 }
             }
-            return units.ToList();
         }
 
         public void MakeMap()
